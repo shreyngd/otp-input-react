@@ -29,11 +29,12 @@ export default function OTPInput({
 
   const verifyAndCallChangeHandler = (otp,e) => {
       // to check otp length validity
+      console.log(onChange)
       onChange(otp,otp.length === inputLength,e);
   }
 
   const keyDownEvent = (e) => {
-    if (inputTypeCondition(e.keyCode)  && e.code !== 'KeyV') {
+    if (inputTypeCondition(e.keyCode)   ) {
         setTimeout(() => {
             if (e.target.nextSibling) {
                 e.target.nextSibling.focus();
@@ -52,6 +53,8 @@ export default function OTPInput({
     } else if (e.keyCode === BKSPC) {
       e.preventDefault();
       e.target.value = "";
+      const otp = inputs.map(el => el.ref.current.value).join('');
+      verifyAndCallChangeHandler(otp,e);
       if (e.target.previousSibling) {
         e.target.previousSibling.focus();
         e.target.previousSibling.select();
